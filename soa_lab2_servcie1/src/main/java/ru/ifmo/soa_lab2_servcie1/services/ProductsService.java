@@ -43,7 +43,7 @@ public class ProductsService {
     }
 
     public ProductsList getProducts(List<String> sort, String pageCapacityStr, String pageNumberStr, Map<String, String> requestParams)
-            throws OperationException, WrongArgumentException, NotFoundException {
+            throws OperationException {
         String[] sortBy = sort == null
                 ? new String[]{}
                 : sort.toArray(new String[0]);
@@ -67,7 +67,6 @@ public class ProductsService {
         if (pageNumber != null && pageNumber < 1) throw new OperationException(ExceptionsUtil.getShouldBeGreaterException("page-number", "0"));
         if (pageCapacity != null && pageCapacity < 1) throw new OperationException(ExceptionsUtil.getShouldBeGreaterException("page-capacity", "0"));
         List<ProductsEntity> entities = dao.getProducts(requestParams, pageNumber, pageCapacity, sortBy);
-        if (entities.size() == 0) throw new NotFoundException(ExceptionsUtil.getNoElementFound());
         ProductsList productsList = new ProductsList();
         List<Product> list = new ArrayList<>();
         for (ProductsEntity entity: entities) {
@@ -96,7 +95,7 @@ public class ProductsService {
         }
     }
 
-    public void deleteProductByOwner(Person person)
+    public void     deleteProductByOwner(Person person)
             throws WrongArgumentException, NotFoundException {
         Validator.validatePerson(person);
         dao.deleteAllProductWithPerson(person);

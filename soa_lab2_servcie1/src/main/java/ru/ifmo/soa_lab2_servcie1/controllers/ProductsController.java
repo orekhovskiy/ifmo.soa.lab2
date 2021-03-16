@@ -14,6 +14,7 @@ import ru.ifmo.soa_lab2_servcie1.models.ProductsList;
 import ru.ifmo.soa_lab2_servcie1.services.ProductsService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("products")
 public class ProductsController {
 
@@ -30,7 +31,7 @@ public class ProductsController {
     }
 
     // расчет средней цены производителя : GET /products/manufacture-cost/average
-    @GetMapping(value = "/products/manufacture-cost/average", produces = "text/plain")
+    @GetMapping(value = "/manufacture-cost/average")
     @ResponseStatus(value= HttpStatus.OK)
     public double getAverageManufactureCost() {
         return service.getAverageManufactureCost();
@@ -44,7 +45,7 @@ public class ProductsController {
                                     @RequestParam(required = false, name = "page-capacity") String pageCapacity,
                                     @RequestParam(required = false, name = "page-number") String pageNumber,
                                     @RequestParam Map<String,String> requestParams)
-            throws WrongArgumentException, OperationException, NotFoundException {
+            throws OperationException {
         return service.getProducts(sort, pageCapacity, pageNumber, requestParams);
     }
 
@@ -67,7 +68,7 @@ public class ProductsController {
     // удаление всех где есть овнер: DELETE /products/owner (в боди объект)
     @DeleteMapping(value = "/owner")
     @ResponseStatus(value= HttpStatus.NO_CONTENT)
-    public void deleteProductByPerson(@RequestBody Person person)
+    public void deleteProductsByOwner(@RequestBody Person person)
             throws WrongArgumentException, NotFoundException {
         service.deleteProductByOwner(person);
     }
@@ -81,7 +82,7 @@ public class ProductsController {
     }
 
     // обновление: PUT /products/{id} (в боди объект)
-    @PostMapping(value = "/{id}")
+    @PutMapping(value = "/{id}")
     @ResponseStatus(value= HttpStatus.NO_CONTENT)
     public void putProduct(@PathVariable String id, @RequestBody Product product)
             throws NotFoundException, WrongArgumentException {

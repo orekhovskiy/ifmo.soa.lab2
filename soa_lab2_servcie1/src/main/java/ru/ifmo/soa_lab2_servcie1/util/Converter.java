@@ -134,11 +134,13 @@ public class Converter {
             try {
                 lhs = entry.getKey().toLowerCase(Locale.ROOT).replace("-", "");
                 String rhs = java.net.URLDecoder.decode(entry.getValue(), StandardCharsets.UTF_8.name());
-                if (rhs.equals("$null")) {
-                    rhs = null;
-                }
                 if (!lhs.equals("pagecapacity") && !lhs.equals("pagenumber") && !lhs.equals("sort") && !lhs.equals("creationdate")) {
-                    predicates.add(cb.equal(root.get(lhs), rhs));
+                    if (rhs.equals("$null")) {
+                        predicates.add(cb.isNull(root.get(lhs)));
+                    }
+                    else {
+                        predicates.add(cb.equal(root.get(lhs), rhs));
+                    }
                 }
             }
             catch (UnsupportedEncodingException e) {

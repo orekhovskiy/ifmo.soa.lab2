@@ -13,12 +13,6 @@ import javax.ws.rs.core.Response;
 
 @Path("/filter")
 public class FilterResource {
-    @GET
-    @Path("/{name}")
-    public Response getMsg(@PathParam("name") String name) {
-        String output = "Welcome   : " + name;
-        return Response.status(200).entity(output).build();
-    }
 
     @GET
     @Path("/manufacture-cost/{manufacture-cost}")
