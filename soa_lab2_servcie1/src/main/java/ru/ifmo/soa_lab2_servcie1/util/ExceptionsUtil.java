@@ -29,20 +29,14 @@ public class ExceptionsUtil {
     public static String getWrongTypeException(String argumentName, String requiredType) {
         return String.format("Value of argument '%s' should be %s type", argumentName, requiredType);
     }
-    public static String getInvalidDataException() {
-        return "Data given in body is invalid";
-    }
     public static String getInvalidFilterArgumentException(String argumentName) {
         return String.format("Filter argument '%s' is invalid", argumentName);
     }
     public static String getInvalidOrderArgumentException(String argumentName) {
         return String.format("Order argument '%s' is invalid", argumentName);
     }
-    public static String getPathParamsAreForbiddenException() {
-        return "Path params are forbidden";
-    }
     public static String getEnumException(String argumentName) {
-        return String.format("Value of the '%s' attribute is either null or has a unsupported value", argumentName);
+        return String.format("Value of the '%s' attribute is either null or has an unsupported value", argumentName);
     }
     public static String getDecodeException() {
         return "Unable to decode.";

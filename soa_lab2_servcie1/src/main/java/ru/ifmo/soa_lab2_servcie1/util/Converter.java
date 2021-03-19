@@ -2,6 +2,7 @@ package ru.ifmo.soa_lab2_servcie1.util;
 
 import ru.ifmo.soa_lab2_servcie1.entities.ProductsEntity;
 import ru.ifmo.soa_lab2_servcie1.exceptions.OperationException;
+import ru.ifmo.soa_lab2_servcie1.exceptions.WrongArgumentException;
 import ru.ifmo.soa_lab2_servcie1.models.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -139,9 +140,13 @@ public class Converter {
                         predicates.add(cb.isNull(root.get(lhs)));
                     }
                     else {
+                        Validator.validateEnum(lhs, rhs);
                         predicates.add(cb.equal(root.get(lhs), rhs));
                     }
                 }
+            }
+            catch (WrongArgumentException e) {
+                throw new OperationException(e.getMessage());
             }
             catch (UnsupportedEncodingException e) {
                 throw new OperationException(ExceptionsUtil.getDecodeException());

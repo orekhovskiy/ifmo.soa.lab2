@@ -4,8 +4,10 @@ import ru.ifmo.soa_lab2_servcie1.DAO.DAOImpl;
 import ru.ifmo.soa_lab2_servcie1.entities.ProductsEntity;
 import ru.ifmo.soa_lab2_servcie1.exceptions.NotFoundException;
 import ru.ifmo.soa_lab2_servcie1.exceptions.WrongArgumentException;
+import ru.ifmo.soa_lab2_servcie1.models.Country;
 import ru.ifmo.soa_lab2_servcie1.models.Person;
 import ru.ifmo.soa_lab2_servcie1.models.Product;
+import ru.ifmo.soa_lab2_servcie1.models.UnitOfMeasure;
 
 import static ru.ifmo.soa_lab2_servcie1.util.ExceptionsUtil.*;
 
@@ -89,7 +91,20 @@ public class Validator {
 
             // Nationality
             if (owner.getNationality() == null)
-                throw new WrongArgumentException(getEnumException("Owner.Nationality"));
+                throw new WrongArgumentException(getCouldNotBeNullException("Owner.Nationality"));
+        }
+    }
+
+    public static  void validateEnum(String enumName, String enumValue) throws WrongArgumentException {
+        if (enumName.equals("unitofmeasure")) {
+            if (!enumValue.equals("GRAMS") && !enumValue.equals("MILLIGRAMS") && !enumValue.equals("CENTIMETERS")) {
+                throw new WrongArgumentException(ExceptionsUtil.getEnumException("UnitOfMeasure"));
+            }
+        }
+        if (enumName.equals("ownernationality")) {
+            if (!enumValue.equals("USA") && !enumValue.equals("CHINA") && !enumValue.equals("INDIA") && !enumValue.equals("THAILAND")) {
+                throw new WrongArgumentException(ExceptionsUtil.getEnumException("Owner.Nationality"));
+            }
         }
     }
 }

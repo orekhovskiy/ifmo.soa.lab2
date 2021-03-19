@@ -2,10 +2,11 @@ package ru.ifmo.soa_lab2_servcie1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-@SpringBootApplication
+@SpringBootApplication()
 public class SoaLab2Servcie1Application extends SpringBootServletInitializer {
 
     @Override
