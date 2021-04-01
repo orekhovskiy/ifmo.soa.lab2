@@ -36,7 +36,7 @@ public class Converter {
         if (model.getPrice() != null) entity.setPrice(model.getPrice());
         if (model.getPartNumber() != null)entity.setPartnumber(model.getPartNumber());
         entity.setManufacturecost(model.getManufactureCost());
-        if (model.getUnitOfMeasure() != null)entity.setUnitofmeasure(model.getUnitOfMeasure().name());
+        if (model.getUnitOfMeasure() != null)entity.setUnitofmeasure(model.getUnitOfMeasure());
 
         if (model.getOwner() != null) {
             entity.setOwnername(model.getOwner().getName());
@@ -103,7 +103,7 @@ public class Converter {
         if (entity.getPrice() != null) model.setPrice(entity.getPrice());
         if (entity.getPartnumber() != null) model.setPartNumber(entity.getPartnumber());
         model.setManufactureCost(entity.getManufacturecost());
-        if (entity.getUnitofmeasure() != null) model.setUnitOfMeasure(UnitOfMeasure.valueOf(entity.getUnitofmeasure()));
+        if (entity.getUnitofmeasure() != null) model.setUnitOfMeasure(entity.getUnitofmeasure());
         if (personNullFieldsAmount < 6) model.setOwner(person);
 
         return  model;

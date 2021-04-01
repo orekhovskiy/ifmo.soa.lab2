@@ -5,12 +5,16 @@
  */
 package ru.ifmo.soa_lab2_servcie1.models;
 
+import org.xml.sax.SAXException;
 import ru.ifmo.soa_lab2_servcie1.adapters.LocalDateAdapter;
 
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @XmlRootElement
@@ -34,6 +38,7 @@ public class Product {
 
     /**
      * Поле координат
+     *
      * @see Coordinates
      * Поле не может быть null
      */
@@ -68,19 +73,22 @@ public class Product {
 
     /**
      * Поле еденицы измерения
+     *
      * @see UnitOfMeasure
      * Поле может быть null
      */
-    private UnitOfMeasure unitOfMeasure;
+    private String unitOfMeasure;
 
     /**
      * Поле владельца
+     *
      * @see ru.ifmo.soa_lab2_servcie1.models.Person
      * Поле может быть null
      */
     private ru.ifmo.soa_lab2_servcie1.models.Person owner;
 
-    public Product() { }
+    public Product() {
+    }
 
     public Long getId() {
         return id;
@@ -139,11 +147,11 @@ public class Product {
         this.manufactureCost = manufactureCost;
     }
 
-    public UnitOfMeasure getUnitOfMeasure() {
+    public String getUnitOfMeasure() {
         return unitOfMeasure;
     }
 
-    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
+    public void setUnitOfMeasure(String unitOfMeasure) {
         this.unitOfMeasure = unitOfMeasure;
     }
 

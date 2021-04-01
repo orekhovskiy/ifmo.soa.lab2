@@ -45,6 +45,16 @@ public class Validator {
         if (product.getCoordinates().getX() <= -965)
             throw new WrongArgumentException(getShouldBeGreaterException("Coordinates.X", "-965"));
 
+        // UnitOfMeasure
+        if (product.getUnitOfMeasure() != null) {
+            try {
+                UnitOfMeasure.valueOf(product.getUnitOfMeasure());
+            }
+            catch (IllegalArgumentException e) {
+                throw new WrongArgumentException(getEnumException("UnitOfMeasure"));
+            }
+        }
+
         // CreationDate
         if (product.getCreationDate() == null)
             throw new WrongArgumentException(getCouldNotBeNullException("CreationDate"));
@@ -91,7 +101,7 @@ public class Validator {
 
             // Nationality
             if (owner.getNationality() == null)
-                throw new WrongArgumentException(getCouldNotBeNullException("Owner.Nationality"));
+                throw new WrongArgumentException(getEnumException("Owner.Nationality"));
         }
     }
 
