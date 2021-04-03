@@ -13,17 +13,15 @@ public class FilterService {
     private static final String REST_URI = System.getenv("soa_service1_url");
 
     public static Response getFilteredProducts(String resource, String value) {
-        try {
-            ProductsList res =  client
-                    .target(REST_URI + "?" + resource + "=" + value)
-                    .request(MediaType.APPLICATION_XML)
-                    .get(ProductsList.class);
-            return Response.status(Response.Status.OK).entity(res).build();
-        }
-        catch (Exception e) {
-            return client
-                    .target(REST_URI + "?" + resource + "=" + value)
-                    .request(MediaType.APPLICATION_XML).get();
+        Response response = client.target(REST_URI + "?" + resource + "=" + value)
+                .request(MediaType.APPLICATION_XML)
+                .get();
+        if (response.getStatusInfo().getFamily() == Response.Status.Family.SUCCESSFUL) {
+            return Response.status(response.getStatus())
+                    .entity(response.readEntity(ProductsList.class))
+                    .build();
+        } else {
+            return response;
         }
     }
 }
